@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model fund_prices {
+  id         Int      @id @default(autoincrement())
+  date       DateTime @db.Date
+  open       Float
+  high       Float
+  low        Float
+  close      Float
+  volume     Float
+  created_at DateTime @db.Date
+  updated_at DateTime @db.Date
+}
+
+model synced_file {
+  id          Int      @id @default(autoincrement())
+  filename    String   @db.VarChar
+  last_synced Int
+  status      Boolean
+  created_at  DateTime @db.Date
+  updated_at  DateTime @db.Date
+}
