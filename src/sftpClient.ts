@@ -1,7 +1,7 @@
 
 import SFTPClient from 'ssh2-sftp-client';
 import path from 'path';
-import {syncCsvToDb} from "./syncCsvToDb";
+import {checkFile} from "./syncCsvToDb";
 import {Readable} from "node:stream";
 
 
@@ -20,9 +20,16 @@ export async function runSync() {
         const filesToProcess = fileList.filter((file) => file.name.endsWith('.csv'))
             .slice(0,10);
         for(const file of filesToProcess){
-            const stream = await sftp.get(path.join(REMOTE_DIR, file.name));
-            // @ts-ignore
-            await syncCsvToDb(Readable.from(stream))
+            const fileAlreadySynced = await checkFile(file.name);
+            if(fileAlreadySynced){
+                console.log(`File ${file.name} already synced. Skipping...`);
+                continue;
+            } else {
+                const stream = await sftp.get(path.join(REMOTE_DIR, file.name));
+                // // @ts-ignore
+                // await syncCsvToDb(Readable.from(stream))
+            }
+
         }
 
 

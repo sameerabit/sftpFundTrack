@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
 import {mainLoop} from './sftpClient';
-import {prisma} from './db';
+import {prisma} from './dbConnection';
 
 dotenv.config();
 

@@ -20,8 +20,8 @@ model fund_prices {
 }
 
 model synced_file {
-  id          Int      @id @default(autoincrement())
-  filename    String   @db.VarChar
+  id          Int      @default(autoincrement())
+  filename    String   @id @db.VarChar
   last_synced Int
   status      Boolean
   created_at  DateTime @db.Date
