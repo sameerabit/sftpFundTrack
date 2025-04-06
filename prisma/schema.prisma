@@ -8,22 +8,26 @@ datasource db {
 }
 
 model fund_prices {
-  id         Int      @id @default(autoincrement())
-  date       DateTime @db.Date
-  open       Float
-  high       Float
-  low        Float
-  close      Float
-  volume     Float
-  created_at DateTime @db.Date
-  updated_at DateTime @db.Date
+  id             Int      @id @default(autoincrement())
+  date           DateTime @db.Date
+  open           Float
+  high           Float
+  low            Float
+  close          Float
+  volume         Float
+  created_at     DateTime @db.Date
+  updated_at     DateTime @db.Date
+  synced_file_id Int
+  synced_file    synced_file? @relation(fields: [synced_file_id], references: [id])
 }
 
 model synced_file {
-  id          Int      @default(autoincrement())
-  filename    String   @id @db.VarChar
+  id          Int      @id @default(autoincrement()) @unique
+  filename    String   @db.VarChar @unique
   last_synced Int
   status      Boolean
-  created_at  DateTime @db.Date
-  updated_at  DateTime @db.Date
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  fund_prices fund_prices[]
 }
+
