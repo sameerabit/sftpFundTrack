@@ -2,6 +2,15 @@ import {PrismaClient} from '@prisma/client';
 
 export const prisma = new PrismaClient();
 
+type Price = {
+    date: string | number | Date;
+    open: string;
+    high: string;
+    low: string;
+    close: string;
+    volume: string;
+}
+
 
 export async function checkFileAlreadySynced(fileName: string): Promise<boolean> {
     const result = await prisma.synced_file.findUnique({
@@ -26,7 +35,7 @@ export async function syncPrices(fileName: string, prices): Promise<boolean> {
     for (let i=0; i<prices.length; i+BATCH_SIZE) {
         const batch = prices.slice(i, i+BATCH_SIZE);
         await prisma.fund_prices.createMany({
-            data: batch.map((price: { date: string | number | Date; open: string; high: string; low: string; close: string; volume: string; }) => ({
+            data: batch.map((price: Price) => ({
                 date: new Date(price.Date),
                 open: parseFloat(price.Open),
                 high: parseFloat(price.High),
