@@ -1,7 +1,4 @@
-// @ts-ignore
-// @ts-ignore
-
-import {checkFileAlreadySynced, syncPrices} from "./dbConnection";
+import {checkFileAlreadySynced, syncPrices} from "./dbService";
 import {Readable} from "node:stream";
 import csvParser from "csv-parser";
 
@@ -12,8 +9,8 @@ export async function checkFileExist(fileName: string): Promise<boolean> {
 
 
 export async function syncCsvToDb(fileName: string, stream: Readable) {
-    await new Promise((resolve, reject) => {
-        const prices: any[] = [];
+    await new Promise((resolve) => {
+        const prices: [] = [];
         stream
             .pipe(csvParser())
             .on('data', async (data) => {

@@ -25,7 +25,7 @@ export async function runSync() {
         const fileList = await sftp.list(REMOTE_DIR);
 
         const chunkSize = 10;
-        let batchesToProcess = [];
+        const batchesToProcess = [];
 
         for(let i=0; i<fileList.length; i+=chunkSize){
             batchesToProcess.push(fileList.filter((file) => {

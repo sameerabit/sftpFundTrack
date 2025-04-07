@@ -2,10 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
 import {mainLoop} from './sftpClient';
-import {prisma} from './dbConnection';
+import {prisma} from './dbService';
 
 dotenv.config();
 
