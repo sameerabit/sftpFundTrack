@@ -14,6 +14,7 @@ export async function syncCsvToDb(fileName: string, stream: Readable) {
         stream
             .pipe(csvParser())
             .on('data', async (data) => {
+                    //@ts-ignore
                     prices.push(data);
                 }
             ).on('end', async () => {

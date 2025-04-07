@@ -25,17 +25,9 @@ app.use(
 );
 app.use(express.json());
 
-
 mainLoop().catch((err) => {
     console.log(err);
 }).finally(() => prisma.$disconnect());
-
-
-app.get('/', (req, res) => {
-    res.send('Hello World!. TypeScript are working!');
-})
-
-
 
 app.listen(3000, () => {
     console.log('✅ Server is running on port 3000');
