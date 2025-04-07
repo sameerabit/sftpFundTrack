@@ -34,7 +34,7 @@ mainLoop().catch((err) => {
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World! GraphQL and TypeScript are working!');
+    res.send('Hello World!. TypeScript are working!');
 })
 
 
