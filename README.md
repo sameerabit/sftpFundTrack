@@ -44,3 +44,6 @@ Run the script every 5 minutes using cron:
 4. **Lambda Function**: Parses the CSV, validates the data, and syncs it to the **database**.
 5. The whole process is **automated** and can run every few minutes.
 
+## Run Unit Tests
+
+``` yarn test ```
