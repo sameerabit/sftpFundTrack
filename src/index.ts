@@ -27,31 +27,6 @@ app.use(
 );
 app.use(express.json());
 
-// const schema = buildSchema(`
-//   type Query {
-//     hello: String,
-//     name: String
-//   }
-// `);
-//
-// const root = {
-//     hello: () => {
-//         return 'Hello world! GraphQL and TypeScript are working!';
-//     },
-//     name: () => {
-//         return 'John Doe';
-//     },
-// };
-
-// app.use(
-//     '/graphql',
-//     graphqlHTTP({
-//         schema,
-//         rootValue: root,
-//         graphiql: true,
-//     })
-// );
-
 
 mainLoop().catch((err) => {
     console.log(err);

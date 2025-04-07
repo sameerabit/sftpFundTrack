@@ -20,12 +20,10 @@ export async function syncCsvToDb(fileName: string, stream: Readable) {
                     prices.push(data);
                 }
             ).on('end', async () => {
-            // console.log(prices);
-
-            // prices.forEach(async (price) => {
             await syncPrices(fileName, prices);
-            // });
             resolve(true);
         })
-        });
+    }).finally(() => {
+        console.log('Process Done...');
+    });
 }
