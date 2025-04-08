@@ -41,6 +41,8 @@ Run the script every 5 minutes using cron:
 
 ## File Upload Flow: Remote Server → S3 → Lambda → Database
 
+![ERD](./diagram/aws_arc.png)
+
 1. **Remote Server**: Puts a CSV or other data file in a watched directory.
 2. **Rclone**: A cronjob or daemon runs `rclone` to sync new files to an **S3 bucket**.
 3. **S3 Bucket**: Upon receiving a new file (`ObjectCreated` event), it triggers...
@@ -50,3 +52,11 @@ Run the script every 5 minutes using cron:
 ## Run Unit Tests
 
 ``` yarn test ```
+
+References:
+
+https://github.com/sindresorhus/p-limit
+
+https://rclone.org/
+
+https://aws.amazon.com/datasync/getting-started/?pg=ln&cp=bn

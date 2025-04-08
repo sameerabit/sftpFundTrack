@@ -27,14 +27,16 @@ export async function syncPrices(fileName: string, prices): Promise<boolean> {
         data: {
             filename: fileName,
             last_synced: 0,
-            status: false,
+            status: false, //may be an enum to keep more status
         }
     });
 
     const BATCH_SIZE = 1000;
 
+    // Can use db transaction
     for (let i=0; i<prices.length; i+=BATCH_SIZE) {
         const batch: [Price]  = prices.slice(i, i+BATCH_SIZE);
+        // createMany is executed as a single query so keep the process efficient i think about this approach.
         await prisma.fund_prices.createMany({
             data: batch.map((price) => ({
                 date: new Date(price.Date),

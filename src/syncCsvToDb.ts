@@ -9,19 +9,15 @@ export async function checkFileExist(fileName: string): Promise<boolean> {
 
 
 export async function syncCsvToDb(fileName: string, stream: Readable) {
-    await new Promise((resolve) => {
         const prices: [] = [];
         stream
             .pipe(csvParser())
-            .on('data', (data) => {
+            .on('data', async (data) => {
                     //@ts-ignore
                     prices.push(data);
                 }
             ).on('end', async () => {
             await syncPrices(fileName, prices);
-            resolve(true);
+            console.log('Processing completed for file:', fileName);
         })
-    }).finally(() => {
-        console.log('Process Done...');
-    });
 }
