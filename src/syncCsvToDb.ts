@@ -13,7 +13,7 @@ export async function syncCsvToDb(fileName: string, stream: Readable) {
         const prices: [] = [];
         stream
             .pipe(csvParser())
-            .on('data', async (data) => {
+            .on('data', (data) => {
                     //@ts-ignore
                     prices.push(data);
                 }
