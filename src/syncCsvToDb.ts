@@ -9,6 +9,8 @@ export async function checkFileExist(fileName: string): Promise<boolean> {
 
 
 export async function syncCsvToDb(fileName: string, stream: Readable) {
+    console.log('here...');
+
     await new Promise((resolve) => {
         const prices: [] = [];
         stream

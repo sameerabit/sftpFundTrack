@@ -23,15 +23,15 @@ export async function runSync() {
 
         const todayStr = new Date().toISOString().split('T')[0];
 
-        const fileList = await sftp.list(REMOTE_DIR);
+        const fileList = (await sftp.list(REMOTE_DIR)).filter((file) => {
+            return file.name.endsWith('.csv') && file.name.startsWith('ALWY_' + todayStr)
+        });
 
         const chunkSize = 10;
         const batchesToProcess = [];
 
         for (let i = 0; i < fileList.length; i += chunkSize) {
-            batchesToProcess.push(fileList.filter((file) => {
-                return file.name.endsWith('.csv') && file.name.startsWith('ALWY_' + todayStr)
-            }).slice(i, i + chunkSize));
+            batchesToProcess.push(fileList.slice(i, i + chunkSize));
         }
 
         for (const filesToProcess of batchesToProcess) {
@@ -40,7 +40,7 @@ export async function runSync() {
                 if (!fileAlreadySynced) {
                     const stream = await sftp.get(path.join(REMOTE_DIR, file.name));
                     //@ts-ignore
-                    await syncCsvToDb(file.name, Readable.from(stream))
+                   await syncCsvToDb(file.name, Readable.from(stream))
                 }
             }));
         }

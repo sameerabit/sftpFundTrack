@@ -33,7 +33,7 @@ export async function syncPrices(fileName: string, prices): Promise<boolean> {
 
     const BATCH_SIZE = 1000;
 
-    for (let i=0; i<prices.length; i+BATCH_SIZE) {
+    for (let i=0; i<prices.length; i+=BATCH_SIZE) {
         const batch: [Price]  = prices.slice(i, i+BATCH_SIZE);
         await prisma.fund_prices.createMany({
             data: batch.map((price) => ({
